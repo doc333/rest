@@ -2,23 +2,13 @@
 
 use Ipf\Rest\Result;
 use Ipf\Rest\Result\NotFound;
-use Ipf\Rest\Api;
+use Todo\Api;
 ini_set('display_errors', 1);
 
 require_once '../app/conf/init.php';
 
+
 $api = new Api();
-//$api->getRouter()->getRequest()->setUri('/todo/task/6');
-
-$api->get('/todo/task/([0-9]+)', function($id){
-	echo 'ok ' . $id; 
-	
-	$bd = array();
-	$res = new Result();
-	$res->data = $bd;
-	return $res;
-});
-
 $api->serve();
 
 

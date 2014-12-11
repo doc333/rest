@@ -16,6 +16,10 @@ class Api {
 		$this->response = new Response();
 	}	
 	
+	protected function getRequest() {
+		return $this->router->getRequest();
+	}
+	
 	/*public function getRouter(){
 		return $this->router;
 	}*/
@@ -51,7 +55,7 @@ class Api {
 		$this->output($result);
 	}
 	
-	private function output(Result $result) {
+	protected function output(Result $result) {
 		$this->response->setHeader('Content-Type', 'application/json');
 		$this->response->setStatusCode($result->code);
 		$this->response->setBody(json_encode($result));
