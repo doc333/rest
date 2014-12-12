@@ -2,8 +2,13 @@
 namespace Todo\Model;
 
 class Todo {
+	private $id;
 	private $text;
 	private $date;
+	
+	public function getId() {
+		return $this->id;
+	}
 	
 	public function getText(){
 		return $this->text;
@@ -11,6 +16,11 @@ class Todo {
 	
 	public function getDate() {
 		return $this->date;
+	}
+	
+	public function setId($id) {
+		$this->id = (int) $id;
+		return $this;
 	}
 	
 	public function setText($text) {

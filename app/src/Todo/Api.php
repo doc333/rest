@@ -3,23 +3,44 @@ namespace Todo;
 
 use Ipf\Rest\Api as RestApi;
 use Ipf\Rest\Result;
+use Todo\Model\Repository\Todo as RepoTodo;
+use Todo\Model\Todo as ModTodo;
 
 class Api extends RestApi {
-	public function __construct() {
+	protected $todoRepo;
+	
+	public function __construct(RepoTodo $todoRepo) {
 		parent::__construct();
-		
+		$this->todoRepo = $todoRepo;
+			
 		$this->get('/todos', function() {
+			$todos = $this->todoRepo->findAll();
 			$result = new Result();
-			$result->data = array('message' => 'ok all todos');
+			
+			if (empty($todos)) {
+				$result->statusCode = 204;
+				$result->data[] = array();
+			} else {
+				foreach ($todos as $todo) {
+					$result->data[] = array(
+						'text' => $todo->getText(),
+						'date' => $todo->getDate()	
+					);
+				}
+			}
+			
 			return $result;
 		});
 		
 		$this->post('/todo/add', function() {
+			$todo = new RepoTodo($db);
+			$result = new Result();
+			
 			$value = $this->getRequest()->getPost();
 			
-			$result = new Result();
 			$result->data = array('message' => 'ok add', 'values' => $value);
 			$result->code = 201;
+			
 			return $result;
 		});
 		

@@ -1,14 +1,15 @@
 <?php
 
-use Ipf\Rest\Result;
-use Ipf\Rest\Result\NotFound;
 use Todo\Api;
+use Todo\Model\Repository\Todo;
+
 ini_set('display_errors', 1);
 
 require_once '../app/conf/init.php';
 
+$todos = new Todo($db);
 
-$api = new Api();
+$api = new Api($todos);
 $api->serve();
 
 
