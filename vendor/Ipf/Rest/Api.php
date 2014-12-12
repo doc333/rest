@@ -57,8 +57,13 @@ class Api {
 	
 	protected function output(Result $result) {
 		$this->response->setHeader('Content-Type', 'application/json');
-		$this->response->setStatusCode($result->code);
-		$this->response->setBody(json_encode($result));
-		$this->response->output();
+        $this->response->setHeader('Access-Control-Allow-Origin', 'http://localhost');
+        $this->response->setHeader('Access-Control-Allow-Methods', 'POST, GET, OPTIONS');
+        $this->response->setHeader('Access-Control-Allow-Headers', 'X-PINGOTHER');
+        $this->response->setHeader('Access-Control-Max-Age', '1728000');
+
+        $this->response->setStatusCode($result->code);
+        $this->response->setBody(json_encode($result));
+        $this->response->output();
 	}
 }
